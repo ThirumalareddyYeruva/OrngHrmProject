@@ -7,29 +7,29 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Code
+      - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Setup Node.js
+      - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: '18' # You can change to your project's Node version
 
-      - name: Install Dependencies
+      - name: Install dependencies
         run: npm install
 
-      - name: Run Cypress Tests
+      - name: Run Cypress tests
         run: npx cypress run
 
-      - name: Upload Cypress Screenshots
-        if: failure()
+      - name: Upload Cypress screenshots
+        if: always() # Ensures this runs even if tests fail
         uses: actions/upload-artifact@v3
         with:
           name: cypress-screenshots
           path: cypress/screenshots
 
-      - name: Upload Cypress Videos
-        if: failure()
+      - name: Upload Cypress videos
+        if: always()
         uses: actions/upload-artifact@v3
         with:
           name: cypress-videos
