@@ -16,7 +16,14 @@ jobs:
           node-version: '18'
 
       - name: Install dependencies
-        run: npm install
+        run: |
+          npm ci || npm install
+
+      - name: Install Cypress
+        run: npx cypress install
+
+      - name: Fix Cypress permissions (just in case)
+        run: chmod +x ./node_modules/.bin/cypress
 
       - name: Run Cypress tests
         run: npx cypress run
